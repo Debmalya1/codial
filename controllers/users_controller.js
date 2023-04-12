@@ -1,21 +1,10 @@
 const User=require('../models/user')
 
 
-module.exports.profile=function(req,res){
-    if(req.cookies.user_id){
-        User.findById(req.cookies.user_id).then(function(user){
-            if(user){
-                return res.render('user_profile', {
-                    title:"Codial | UserProfile",
-                    user:user
-                });
-            }
-            return res.redirect('/users/sign-in');
-        });
-    }
-    else{
-        return res.redirect('/users/sign-in')
-    }
+module.exports.profile = function(req, res){
+    return res.render('user_profile', {
+        title: 'User Profile'
+    })
 }
 
 //render the signup page
@@ -60,7 +49,6 @@ module.exports.create=function(req,res){
 
 //Sign in and create a session for the user
 module.exports.createSession=function(req,res){
-
     return res.redirect('/');
 }
 
