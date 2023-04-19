@@ -8,7 +8,8 @@ const usersController=require('../controllers/users_controller');
 
 
 
-router.get('/profile',passport.checkAuthentication,usersController.profile); //if authentication is checked(user logged in) then only show user-profile page
+router.get('/profile/:id',passport.checkAuthentication,usersController.profile); //if authentication is checked(user logged in) then only show user-profile page
+router.post('/update/:id',passport.checkAuthentication,usersController.update); //update route
 
 router.get('/sign-up',usersController.signUp);
 router.get('/sign-in',usersController.signIn);

@@ -2,9 +2,25 @@ const User=require('../models/user')
 
 
 module.exports.profile = function(req, res){
-    return res.render('user_profile', {
-        title: 'User Profile'
-    })
+    User.findById(req.params.id).then(function(user){
+        return res.render('user_profile', {
+            title: 'User Profile',
+            profile_user:user
+        });
+    });
+}
+
+
+//for updating profile info(email,name) from profile page
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){ //if anyone chnged the html and tries updating others profile wont be able to do so.. because of this condition
+        User.findByIdAndUpdate(req.params.id,req.body).then(function(user){
+            return res.redirect('back');
+        });
+    }
+    else{
+        return res.status(401).send('Unauthorized');
+    }
 }
 
 //render the signup page
