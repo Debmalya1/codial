@@ -1,7 +1,7 @@
 const Post=require('../models/post');
 const User=require('../models/user');
 
-module.exports.home=function(req,res){
+module.exports.home= async function(req,res){  //async func
     //console.log(req.cookies);
     //res.cookie('user_id',25);
     //return res.end('<h1>Express is up for codium</h1>');
@@ -15,24 +15,28 @@ module.exports.home=function(req,res){
         });
     })*/
 
-
-    //populate the user of each post so that we can show name along with the posts
-    Post.find({}).populate('user')
-    .populate({
-        path:'comments',
-        populate:{
-            path:'user'
-        }
-    })
-    .then(function(posts){
-        User.find().then(function(users){
-            return res.render('home',{
-                title:"Codial | Home",
-                posts:posts,
-                all_users: users
-            });
+    try{    //try to run the run if any error go to catch section
+        //populate the user of each post so that we can show name along with the posts
+        let posts = await Post.find({}).populate('user')   //wait for this function to execute
+        .sort('-createdAt') //for sorting with respect to time created(latest to be shown first)
+        .populate({
+            path:'comments',
+            populate:{
+                path:'user'
+            }
         });
-    });
+    
+        let users= await User.find({}) //then wait for this function to get exceute
+        req.flash('success','Welcome to the Home Page!!!')
+        return res.render('home',{  //then return this
+            title:"Codial | Home",
+            posts:posts,
+            all_users: users
+        });
+    }catch(err){    //if error in any portion of the try it will go to the catch and show error
+        req.flash('error','error in home page');
+        return res.redirect('back');
+    }
     
 }
 

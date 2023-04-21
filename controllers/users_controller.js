@@ -15,7 +15,8 @@ module.exports.profile = function(req, res){
 module.exports.update=function(req,res){
     if(req.user.id==req.params.id){ //if anyone chnged the html and tries updating others profile wont be able to do so.. because of this condition
         User.findByIdAndUpdate(req.params.id,req.body).then(function(user){
-            return res.redirect('back');
+            req.flash('success','Profile Details Updated!')
+            return res.redirect('/');
         });
     }
     else{
@@ -65,6 +66,7 @@ module.exports.create=function(req,res){
 
 //Sign in and create a session for the user
 module.exports.createSession=function(req,res){
+    req.flash('success','Logged in Sucessfully')
     return res.redirect('/');
 }
 
@@ -74,6 +76,7 @@ module.exports.destroySession=function(req,res){
         if(err){
             console.log("Error in signing out",err);
         }
+        req.flash('success','Logged out Sucessfully')
         return res.redirect('/');
     }); 
     

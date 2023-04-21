@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/home.css">
+
 <div id="home-container">
     <section id="feed-posts">
         <% if(locals.user){ %>
@@ -10,7 +11,9 @@
             <div id="posts-list-container">
                 <ul>
                     <% for(post of posts){  %>
+
                         <%- include('_post') -%>
+
                     <% } %>
                 </ul>
             </div>
@@ -28,4 +31,7 @@
         <% } %>
     </section>
 </div>
+<!--importing this scripts for creating dynamic comments and posts-->
+<script src="/js/home_post_comments.js"></script>
+<script src="/js/home_posts.js"></script>
         

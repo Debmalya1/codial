@@ -9,6 +9,8 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
+const flash=require('connect-flash');
+const customMware=require('./config/middleware');
 
 app.use(express.urlencoded({ extended: true })); //If extended is false, you can not post "nested object"
 
@@ -54,6 +56,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser); //this func is called and user is accessibale to views using locals
+
+//for flash messages(uses session cookies so initialized after it)
+app.use(flash());
+app.use(customMware.setFlash);
 
 //use express router
 app.use('/',require('./routes'));
