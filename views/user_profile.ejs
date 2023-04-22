@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="/css/user_profile.css">
-<h1>
-     Codial/Profile page
-</h1>
      
-
-
+<img src="<%=user.avatar%>"  alt="<%=user.name%>" width="100">
 
 <% if(user.id == profile_user.id){ %>
 <!-- if user matches show the form to edit their own profile(update)-->
@@ -15,8 +11,10 @@
           <input type="file" name="avatar" placeholder="Profile Picture">
           <input type="submit" value="Update">
      </form>
+     <p>Name : <%= profile_user.name %></p>
+     <p>Email : <%= profile_user.email %></p>
 <% } else { %>
-<!--else only show the profile info-->
+<!--only show the profile info-->
      <p>Name : <%= profile_user.name %></p>
      <p>Email : <%= profile_user.email %></p>
 <% } %>

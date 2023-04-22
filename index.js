@@ -18,6 +18,9 @@ app.use(cookieParser());
 
 app.use(express.static('./assets')); //app.use means middleware
 
+//uploads is available on this path(directory of index is joined with uploads)
+app.use('/uploads',express.static(__dirname + '/uploads'));//make the uploads available to the browser
+
 app.use(expressLayouts);
 //extract style and scripts from subpages into layout
 app.set('layout extractStyles',true); //Ones any link tag is found it is taken to layout.ejs file style tag while rendering
