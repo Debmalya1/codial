@@ -30,6 +30,7 @@ module.exports.create=async function(req,res){
             req.flash('success','Comment added!');
 
             
+            
             res.redirect('/');
         }
     }catch(err){
