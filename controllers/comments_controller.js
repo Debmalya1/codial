@@ -1,6 +1,8 @@
 const Comment=require('../models/comment');
 const Post=require('../models/post');
-
+const commentsMailer=require('../mailers/comments_mailer');
+const queue=require('../config/keu');
+const commentEmailWorker=require('../workers/comment_email_worker');
 module.exports.create=async function(req,res){
 
     try{
@@ -14,10 +16,21 @@ module.exports.create=async function(req,res){
             post.comments.push(comment); //this comment is pushed to the post automatically fetch the post id and push it(updating comment)
             post.save(); //save the update by db
 
-            
+            //similar for comments to fetch the user's id!
+            comment = await comment.populate('user', 'name email');
+            //mailer function for each comment
+            //commentsMailer.newComment(comment);
+            //queue for delayed jobs in comment mailing function
+            //inside the queue a new job is created(if queue is not present create a queue and job is added auto)
+            let job=queue.create('emails',comment).save(function(err){
+                if(err){
+                    console.log("error in sending to the a queue",err);
+                    return;
+                }
+                console.log("Job enqueued",job.id);
+            });
             if(req.xhr){
-                //similar for comments to fetch the user's id!
-                comment = await comment.populate('user', 'name');
+
                 return res.status(200).json({
                     data:{
                         comment:comment
