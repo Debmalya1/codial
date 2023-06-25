@@ -10,6 +10,11 @@ const postSchema= new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
     },
+    //mail of the post creater
+    userMail: {
+        type: String,
+        ref:'UserMail'
+    },
     //include the array of ids of all the comments in the post schema itself for faster fetching
     comments:[
         {

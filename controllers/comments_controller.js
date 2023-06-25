@@ -11,13 +11,16 @@ module.exports.create=async function(req,res){
         if(post){
             let comment= await Comment.create({content:req.body.content,
                 post:req.body.post,
-                user:req.user._id
+                user:req.user._id,
+                //contains the mail of the one who created the post to which comment is added for mailng purpose
+                postUser:post.userMail
             });
             post.comments.push(comment); //this comment is pushed to the post automatically fetch the post id and push it(updating comment)
             post.save(); //save the update by db
-
+            //console.log(post.userMail);
             //similar for comments to fetch the user's id!
             comment = await comment.populate('user', 'name email');
+           //comment.post=await comment.post.populate('postUser', 'name email');
             //mailer function for each comment
             //commentsMailer.newComment(comment);
             //queue for delayed jobs in comment mailing function
