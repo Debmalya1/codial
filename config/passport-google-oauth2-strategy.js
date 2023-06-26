@@ -12,8 +12,8 @@ passport.use(new googleStrategy({
 },function(accessToken,refreshToken,profile,done){
     //find a user
     User.findOne({email:profile.emails[0].value}).then(function(user){ //user can have multiple emails only need to get the current email
-        console.log(accessToken,refreshToken);//we can use api of google using this access token and access different permission of the user
-        console.log(profile);
+        //console.log(accessToken,refreshToken);//we can use api of google using this access token and access different permission of the user
+        //console.log(profile);
         if(user){
             //if found set this user as req.user
             return done(null,user)

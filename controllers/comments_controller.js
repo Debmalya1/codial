@@ -3,6 +3,7 @@ const Post=require('../models/post');
 const commentsMailer=require('../mailers/comments_mailer');
 const queue=require('../config/keu');
 const commentEmailWorker=require('../workers/comment_email_worker');
+const Like=require('../models/like');
 module.exports.create=async function(req,res){
 
     try{
@@ -20,8 +21,9 @@ module.exports.create=async function(req,res){
             //console.log(post.userMail);
             //similar for comments to fetch the user's id!
             comment = await comment.populate('user', 'name email');
+            //console.log(comment.user.name);
            //comment.post=await comment.post.populate('postUser', 'name email');
-            //mailer function for each comment
+            //mailer function for each comment(when not use redis)
             //commentsMailer.newComment(comment);
             //queue for delayed jobs in comment mailing function
             //inside the queue a new job is created(if queue is not present create a queue and job is added auto)
@@ -30,7 +32,7 @@ module.exports.create=async function(req,res){
                     console.log("error in sending to the a queue",err);
                     return;
                 }
-                console.log("Job enqueued",job.id);
+                //console.log("Job enqueued",job.id);
             });
             if(req.xhr){
 
@@ -68,6 +70,10 @@ module.exports.destroy=async function(req,res){
             comment.deleteOne();
             let post=await Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}});
 
+            //destroy the associated likes for this comment
+            await Like.deleteMany({likeable:comment._id,onModel:'Comment'});
+
+            //send the comment id which was deleted back to the views
             if(req.xhr){
                 return res.status(200).json({
                     data:{

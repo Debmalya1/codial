@@ -34,4 +34,13 @@
 <!--importing this scripts for creating dynamic comments and posts-->
 <script src="/js/home_post_comments.js"></script>
 <script src="/js/home_posts.js"></script>
-        
+
+
+<!--Importing this script for the togggle like function-->
+<script src="js/toggle_likes.js"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>

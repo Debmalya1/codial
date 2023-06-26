@@ -14,7 +14,7 @@
                     $(`#post-comments-${data.data.comment.post}`).prepend(newComment);
                     deleteComment($('.delete-comment-button',newComment));
 
-
+                    new ToggleLike($(' .toggle-like-button', newComment));
                     //addding flash message using Noty
                     new Noty({
                         theme:'relax',
@@ -42,6 +42,11 @@
             <br>
             <small>
                 ${comment.user.name}
+            </small>
+            <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                    0 Likes
+                </a>
             </small>
         </p>    
     </li>`)
@@ -73,7 +78,8 @@
     }
 
     let convertCommentsToAjax = function(){
-        $('.delete-comment-button').each(function(){
+        //chnge made here it was  $('.delete-comment-button').each(function(){
+        $(`post-comments-list>ul>li`).each(function(){
             let self = $(this);
             let deleteButton = $('.delete-comment-button', self);
             deleteComment(deleteButton);

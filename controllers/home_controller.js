@@ -17,14 +17,28 @@ module.exports.home= async function(req,res){  //async func
 
     try{    //try to run the run if any error go to catch section
         //populate the user of each post so that we can show name along with the posts
-        let posts = await Post.find({}).populate('user')   //wait for this function to execute
+        let posts = await Post.find({})   //wait for this function to execute
         .sort('-createdAt') //for sorting with respect to time created(latest to be shown first)
-        .populate({
-            path:'comments',
-            populate:{
-                path:'user'
+        .populate('user')
+        .populate
+        ({
+            path: 'comments',
+            populate:
+            {
+                path: 'user'
             }
-        });
+        })
+            //for comments(likes)
+            .populate
+            ({
+                path: 'comments',
+                populate:
+                {
+                    path: 'likes'
+                }
+            })//.populate('comments')
+        //for post(likes)
+        .populate('likes');
     
         let users= await User.find({}) //then wait for this function to get exceute
         req.flash('success','Welcome to the Home Page!!!')
