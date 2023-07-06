@@ -16,7 +16,11 @@ Codial,a social media platform where one user can:<br />
 **UserProfile Page**<br /><br />
 ![image](https://github.com/Debmalya1/codial/assets/109780618/234a4b0a-3c75-4946-8e11-18350fce1178)<br /><br />
 **SignUp page**<br /><br />
-![image](https://github.com/Debmalya1/codial/assets/109780618/22958eb7-78de-4409-acde-f6329d369610)
-
-
+![image](https://github.com/Debmalya1/codial/assets/109780618/22958eb7-78de-4409-acde-f6329d369610)<br /><br />
+Tech Stack used:<br />
+1.EJS<br />
+2.CSS<br />
+3.NodeJS<br />
+4.ExpressJS<br />
+5.MongoDB<br />
 
