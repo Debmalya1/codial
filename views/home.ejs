@@ -1,36 +1,54 @@
 <link rel="stylesheet" href="/css/home.css">
+<div class="home">
+    <div class="feed">
+      <% if(locals.user){ %>
+      <div class="create-post">
+        <form id="post-form" action="/posts/create" method="POST">
+          <textarea
+            class="add-post"
+            name="content"
+            placeholder="Type Here.."
+            required
+          ></textarea>
+          <input id="add-post-btn" type="submit" value="Post" />
+        </form>
+      </div>
+      <div id="posts-list-container" class="posts-list">
+        <% for(post of posts){ %> <%- include("_post") -%> <% } %>
+      </div>
+    </div>
+    <% } %>
 
-<div id="home-container">
-    <section id="feed-posts">
-        <% if(locals.user){ %>
-            <h4>Posts</h4>
-            <form action="/posts/create" id="new-post-form" method="post">
-                <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
-                <input type="submit" value="Post">
-            </form>
-            <div id="posts-list-container">
-                <ul>
-                    <% for(post of posts){  %>
-
-                        <%- include('_post') -%>
-
+  
+    <% if(locals.user) { %>
+    <div class="friends-list">
+      <div class="header">Friends</div>
+      <% if(locals.user){ %>
+        <% for(u of all_users){ %>
+            <p>
+              <a class="friends-item" href="/users/profile/<%=u.id %>">
+                <span class="friends-img">
+                  <% if(u.avatar == undefined){ %>
+                    <img
+                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                    alt="logo"
+                  />
+                    <% }else{%>
+                      <img class="rounded-circle" id="user-dp"
+                      src="<%= u.avatar %>"
+                      alt="logo"
+                    />
                     <% } %>
-                </ul>
-            </div>
+                  </span>
+                <span class="friends-name"><%= u.name %></d>
+              </a>
+            </p>
         <% } %>
-    </section>
-
-    <section id="user-friends">
-        <% if(locals.user){ %>
-            <h4>Friends</h4>
-            <% for(u of all_users){ %>
-                <p>
-                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-                </p>
-            <% } %>
-        <% } %>
-    </section>
-</div>
+    <% } %>
+          </span>
+    <% } %> <%- include("_chat_box") %>
+  </div>
+  
 <!--importing this scripts for creating dynamic comments and posts-->
 <script src="/js/home_post_comments.js"></script>
 <script src="/js/home_posts.js"></script>
@@ -44,3 +62,10 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+<% if(locals.user){ %>
+    <script>
+        new ChatEngine('user-chat-box', '<%= locals.user.name%>');
+    </script>
+<% } %>

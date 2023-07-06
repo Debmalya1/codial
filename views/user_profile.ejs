@@ -1,23 +1,62 @@
 <link rel="stylesheet" href="/css/user_profile.css">
-     
-
 
 <% if(user.id == profile_user.id){ %>
-
-     <img src="<%=user.avatar%>"  alt="<%=user.name%>" width="100">
-
-<!-- if user matches show the form to edit their own profile(update)-->
-     <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
-          <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
-          <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
-
-          <input type="file" name="avatar" placeholder="Profile Picture">
-          <input type="submit" value="Update">
-     </form>
-     <p>Name : <%= profile_user.name %></p>
-     <p>Email : <%= profile_user.email %></p>
-<% } else { %>
-<!--only show the profile info-->
-     <p>Name : <%= profile_user.name %></p>
-     <p>Email : <%= profile_user.email %></p>
+    <form id='update-form' action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
+    <div class="settings">
+      <div class="img-container" id="my-image">
+        <% if(user.avatar == undefined){ %>
+          <img src="https://image.flaticon.com/icons/svg/2154/2154651.svg" alt="user-pic">
+        <% }else{%>
+          <img src="<%= user.avatar %>" alt="user-dp">
+        <% } %>
+      </div>
+      <div style="display: flex;flex-direction: row;">
+        <div id="upload">
+          <i class="fas fa-cloud-upload-alt"></i>UPLOAD
+        </div>&nbsp; &nbsp;
+        <input type="file" name="avatar" placeholder="Profile Picture">
+      </div>
+      <div class="field">
+        <div class="field-label">Email</div>
+          <input type="email" name='email' value=<%= profile_user.email %>>
+      </div>
+      <div class="field">
+        <div class="field-label">Name</div>
+          <input type="text" name='name' value=<%= profile_user.name %>>
+      </div>
+      <!--div class="field">
+        <div class="field-label">New password</div>
+          <input type="password" name='password'>
+        </div>
+        <div class="field">
+          <div class="field-label">Confirm password</div>
+          <input type="password" name='confirm_password'>
+        </div-->
+        <div class="btn-grp">
+          <button type="submit" class="button save-btn">Save</button>
+        </div>
+      </div>
+  </form>
+    
+<% }else{ %>
+  <div class="settings">
+    <!--div class="img-container">
+      <img src="https://image.flaticon.com/icons/svg/2154/2154651.svg" alt="user-dp">
+    </div-->
+    <div class="img-container" id="my-image">
+      <% if(locals.profile_user.avatar == undefined){ %>
+        <img src="https://image.flaticon.com/icons/svg/2154/2154651.svg" alt="user-pic">
+      <% }else{%>
+        <img src="<%= locals.profile_user.avatar %>" alt="user-dp">
+      <% } %>
+    </div>
+    <div class="field">
+      <div class="field-label">Email</div>
+      <div class="field-value"><%= locals.profile_user.email %></div>
+    </div>
+     <div class="field">
+      <div class="field-label">Name</div>
+      <div class="field-value"><%= locals.profile_user.name %></div>
+    </div>
 <% } %>
+

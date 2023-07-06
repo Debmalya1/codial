@@ -7,12 +7,15 @@ module.exports.toggleLike=async function(req,res){
 
         //likes/toggle/id=abcdef&type=Post
         let likeable;
+        let type='';
         let deleted=false; //for increment or decrement the no of likes displayed on the page
         if(req.query.type=='Post'){
             //getting the id and populating likes array(if likes already present else empty array)
             likeable= await Post.findById(req.query.id).populate('likes');
+            type='Posts'
         }else{
             likeable=await Comment.findById(req.query.id).populate('likes');
+            type='Comments'
         }
 
         //check if a like already exists
@@ -43,7 +46,9 @@ module.exports.toggleLike=async function(req,res){
         return res.status(200).json({
             message:"Request Successful",
             data:{
-                deleted:deleted
+                deleted:deleted,
+                type:type,
+                likeable:likeable,
             }
         });
     }catch(err){

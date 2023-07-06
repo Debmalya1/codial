@@ -20,7 +20,7 @@ module.exports.create=async function(req,res){
             post.save(); //save the update by db
             //console.log(post.userMail);
             //similar for comments to fetch the user's id!
-            comment = await comment.populate('user', 'name email');
+            comment = await comment.populate('user', 'name email avatar');
             //console.log(comment.user.name);
            //comment.post=await comment.post.populate('postUser', 'name email');
             //mailer function for each comment(when not use redis)

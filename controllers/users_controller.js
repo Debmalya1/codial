@@ -1,14 +1,40 @@
 const User=require('../models/user');
 const fs=require('fs');
 const path=require('path');
+const Friendships=require('../models/friendship');
 
-module.exports.profile = function(req, res){
-    User.findById(req.params.id).then(function(user){
+module.exports.profile =async function(req, res){
+   /* User.findById(req.params.id).then(function(user){
         return res.render('user_profile', {
             title: 'User Profile',
             profile_user:user
         });
-    });
+    });*/
+    try{
+        let user=await User.findById(req.params.id);
+
+       /* let friendship1,friendship2;
+
+
+        friendship1=await Friendships.findOne({
+            from_user: request.user,
+            to_user: request.params.id
+        });
+        friendship2=await Friendships.findOne({
+            from_user: request.params.id,
+            to_user: request.user
+        });
+
+        let populated_user=await Users.findById(request.user).populate('friends');*/
+
+        return res.render('user_profile', {
+            title: 'User Profile',
+            profile_user:user
+        });
+    }catch(err){
+        console.log('ERROR',err);
+        return;
+    }
 }
 
 
@@ -35,7 +61,7 @@ module.exports.update= async function(req,res){
                 if(err){
                     console.log('*********Multer ERROR: ',err);
                 }
-                //console.log(req.file);
+                console.log(req.file);
                 user.name=req.body.name; //possible bcz of multer
                 user.email=req.body.email;
                 if(req.file){
@@ -64,7 +90,7 @@ module.exports.update= async function(req,res){
 //render the signup page
 module.exports.signUp=function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('back');
     }
 
 
@@ -76,7 +102,7 @@ module.exports.signUp=function(req,res){
 //render the sign in page
 module.exports.signIn=function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('back');
     }
 
 

@@ -19,7 +19,14 @@ const userSchema=new mongoose.Schema({
     },
     avatar:{
         type:String //contains the path of the file(as db doesnot store image(File))
-    }
+    },
+    //from_user,to_user of friendship schema if present in any column username then its respective frnd id should be added here
+    friends:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Friendship'
+        }
+    ]
 },{
     timestamps:true
 });
