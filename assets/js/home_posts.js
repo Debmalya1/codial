@@ -12,6 +12,7 @@
                 data: newPostForm.serialize(), //.serealize() convert the form data to json(content is the key and value filled in the form)
                 success:function(data){
                     let newPost=newPostDom(data.data.post);
+                    console.log(data);
                     $('#posts-list-container').prepend(newPost); //prepend is adding at the top(opposite of append)
                     deletePost($('.delete-post-btn',newPost));
 
@@ -61,7 +62,6 @@
           
               <div class="post-actions">
                 <button class="post-like no-btn">
-                ${locals.user}{
                 <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
                 
                 <i class="fa-regular fa-heart"></i>

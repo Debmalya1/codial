@@ -28,7 +28,7 @@ module.exports.profile =async function(req, res){
         let populated_user=await Users.findById(request.user).populate('friends');*/
 
         return res.render('user_profile', {
-            title: 'User Profile',
+            title: 'Codial | UserProfile',
             profile_user:user
         });
     }catch(err){
