@@ -8,8 +8,8 @@ Codial,a social media platform where one user can:<br />
 6.User can also view other users profile<br />
 7.Chatroom is available where users can do group chat<br />
 8.Posts,comments can be deleted<br />
-9.Posts,likes and comments can be made without the page getting refreshed<br />
-10.Flas notifications when a post or comment is created or deleted<br />
+9.Posts,likes and comments can be made without the page getting refreshed <br />
+10.Flash notifications when a post or comment is created or deleted<br />
 
 **Home Page**<br /><br >
 ![image](https://github.com/Debmalya1/codial/assets/109780618/dc0abe12-9dd2-43da-8ff2-1bcf77678b81)<br /><br />
