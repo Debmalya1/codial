@@ -16,7 +16,7 @@ Codial,a social media platform where one user can:<br />
 2.CSS<br />
 3.NodeJS<br />
 4.ExpressJS<br />
-5.MongoDB<br />
+5.MongoDB<br /><br />
 **Home Page**<br /><br >
 ![image](https://github.com/Debmalya1/codial/assets/109780618/dc0abe12-9dd2-43da-8ff2-1bcf77678b81)<br /><br />
 **UserProfile Page**<br /><br />
