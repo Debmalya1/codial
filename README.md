@@ -9,7 +9,8 @@ Codial,a social media platform where one user can:<br />
 7.Chatroom is available where users can do group chat<br />
 8.Posts,comments can be deleted<br />
 9.Posts,likes and comments can be made without the page getting refreshed <br />
-10.Flash notifications when a post or comment is created or deleted<br /><br />
+10.Flash notifications when a post or comment is created or deleted<br />
+11.Mails are send to the user who got a comment in their post<br /><br />
 **Tech Stack used:**
 <br />
 1.EJS<br />
